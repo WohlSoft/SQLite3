@@ -1,3 +1,10 @@
+TEMPLATE = lib
+CONFIG  -= app_bundle
+CONFIG  -= qt
+CONFIG  -= dll
+CONFIG  += staticlib
+
+QMAKE_CFLAGS += -Wno-unused-parameter -Wno-missing-field-initializers
 
 TARGET=sqlite3
 
