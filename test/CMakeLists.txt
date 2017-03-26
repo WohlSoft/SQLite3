@@ -9,10 +9,12 @@ add_executable (sqlite_demo
                 sqlite_demo.c
                 )
 
+# Set up dependencies
+add_dependencies(sqlite_demo sqlite3)
 LINK_DIRECTORIES(${CMAKE_SOURCE_DIR})
-TARGET_LINK_LIBRARIES(sqlite_demo sqlite3 pthread dl m)
+    TARGET_LINK_LIBRARIES(sqlite_demo sqlite3)
+if(NOT MSVC)
+    TARGET_LINK_LIBRARIES(sqlite_demo sqlite3 pthread dl m)
+endif()
 
-set_target_properties(sqlite_demo PROPERTIES COMPILE_DEFINITIONS "GSL_THROW_ON_CONTRACT_VIOLATION")
-
-add_test (NAME sqlite_demo WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}/build/test/bin COMMAND sqlite_demo)
-
+add_test (NAME sqlite_demo WORKING_DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/bin/$<CONFIG> COMMAND sqlite_demo)
