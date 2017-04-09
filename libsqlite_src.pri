@@ -4,7 +4,9 @@ CONFIG  -= qt
 CONFIG  -= dll
 CONFIG  += staticlib
 
-QMAKE_CFLAGS += -Wno-unused-parameter -Wno-missing-field-initializers
+!win*-msvc*:{
+    QMAKE_CFLAGS_WARN_ON += -Wno-unused-parameter -Wno-missing-field-initializers
+}
 
 TARGET=sqlite3
 
