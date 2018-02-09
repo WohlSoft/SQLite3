@@ -6,10 +6,10 @@ SET(SQLITE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
 SET(SQLITE_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src-amalgamation/)
 
 ####### SET POSTFIX:
-set(CMAKE_DEBUG_POSTFIX             "Debug")
-set(CMAKE_RELEASE_POSTFIX           "Release")
-set(CMAKE_RELWITHDEBINFO_POSTFIX    "RelWithDebInfo")
-set(CMAKE_MINSIZEREL_POSTFIX        "MinSizeRel")
+set(CMAKE_DEBUG_POSTFIX             "d")
+set(CMAKE_RELEASE_POSTFIX           "")
+set(CMAKE_RELWITHDEBINFO_POSTFIX    "")
+set(CMAKE_MINSIZEREL_POSTFIX        "")
 
 ####### FREEIMAGE
 PROJECT(sqlite3)
@@ -49,6 +49,4 @@ enable_testing ()
 
 # Add test
 add_subdirectory (test)
-
-
 
