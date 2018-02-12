@@ -39,7 +39,6 @@ install(TARGETS sqlite3
 )
 
 option(SQLITE_ENABLE_TESTING "Enables a building of unit test utility" OFF)
-
 if(SQLITE_ENABLE_TESTING)
 	# Enable Testing
 	enable_testing ()
