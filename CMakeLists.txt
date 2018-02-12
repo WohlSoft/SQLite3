@@ -2,17 +2,17 @@
 cmake_minimum_required(VERSION 3.2)
 
 ####### ADD PREDEFINED DEFINITIONS:
-SET(SQLITE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
-SET(SQLITE_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src-amalgamation/)
+set(SQLITE_DIR ${CMAKE_CURRENT_SOURCE_DIR})
+set(SQLITE_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/src-amalgamation/)
 
 ####### SET POSTFIX:
-set(CMAKE_DEBUG_POSTFIX             "Debug")
-set(CMAKE_RELEASE_POSTFIX           "Release")
-set(CMAKE_RELWITHDEBINFO_POSTFIX    "RelWithDebInfo")
-set(CMAKE_MINSIZEREL_POSTFIX        "MinSizeRel")
+set(CMAKE_DEBUG_POSTFIX             "d")
+set(CMAKE_RELEASE_POSTFIX           "")
+set(CMAKE_RELWITHDEBINFO_POSTFIX    "")
+set(CMAKE_MINSIZEREL_POSTFIX        "")
 
 ####### FREEIMAGE
-PROJECT(sqlite3)
+project(sqlite3 C)
 
 ADD_DEFINITIONS("-DSQLITE_ENABLE_RTREE")
 ADD_DEFINITIONS("-DSQLITE_ENABLE_FTS5")
@@ -21,14 +21,10 @@ ADD_DEFINITIONS("-DSQLITE_ENABLE_JSON1")
 ADD_DEFINITIONS("-DSQLITE_THREADSAFE=2 ")
 ADD_DEFINITIONS("-DSQLITE_CONFIG_SERIALIZED")
 
-####### INCLUDE PATHS
-INCLUDE_DIRECTORIES(${FREEIMAGE_DIR}/Source/)
-
 ####### SOURCE CODE
-SET(SQLITE_SRC ${CMAKE_CURRENT_SOURCE_DIR}
-                            src-amalgamation/sqlite3.c
-                        )
-
+set(SQLITE_SRC ${CMAKE_CURRENT_SOURCE_DIR}
+	src-amalgamation/sqlite3.c
+)
 
 add_library(sqlite3 STATIC ${SQLITE_SRC})
 
@@ -36,19 +32,17 @@ add_library(sqlite3 STATIC ${SQLITE_SRC})
 FILE(GLOB sqlite3_headers ${SQLITE_SRC_DIR}/sqlite3.h)
 INSTALL(FILES ${sqlite3_headers} DESTINATION include)
 
-INSTALL(TARGETS sqlite3
-        ARCHIVE DESTINATION lib CONFIGURATIONS Debug Release MinSizeRel RelWithDebInfo
-        LIBRARY DESTINATION lib CONFIGURATIONS Debug Release MinSizeRel RelWithDebInfo
-        RUNTIME DESTINATION bin CONFIGURATIONS Debug Release MinSizeRel RelWithDebInfo
+install(TARGETS sqlite3
+        ARCHIVE DESTINATION lib
+        LIBRARY DESTINATION lib
+        RUNTIME DESTINATION bin
 )
 
+option(SQLITE_ENABLE_TESTING "Enables a building of unit test utility" OFF)
 
-
-# Enable Testing
-enable_testing ()
-
-# Add test
-add_subdirectory (test)
-
-
-
+if(SQLITE_ENABLE_TESTING)
+	# Enable Testing
+	enable_testing ()
+	# Add test
+	add_subdirectory (test)
+endif()
