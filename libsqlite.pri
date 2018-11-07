@@ -1,2 +1,0 @@
-
-INCLUDEPATHS += $$PWD/src-amalgamation
